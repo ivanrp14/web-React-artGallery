@@ -1,0 +1,53 @@
+/* About.css */
+
+.about-page {
+    font-family: 'Poppins', sans-serif;
+    color: #333; /* Color de texto principal */
+    background-color: #f9f9f9; /* Color de fondo */
+    margin: 0;
+    padding: 0;
+  }
+  
+  .about-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff; /* Fondo blanco para el contenido */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones para animaciones */
+  }
+  
+  .about-container:hover {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa en hover */
+  }
+  
+  .about-title {
+    font-size: 2rem;
+    color: #111; /* Color más oscuro para el encabezado */
+    margin-bottom: 20px;
+    text-align: center; /* Centra el encabezado */
+    position: relative;
+    transition: color 0.3s ease; /* Transición de color en hover */
+  }
+  
+  .about-title:hover {
+    color: #555; /* Color más claro al pasar el ratón */
+  }
+  
+  .about-strong {
+    color: #000; /* Color de texto en negrita */
+  }
+  
+  .about-link {
+    color: #000; /* Color de enlace */
+    text-decoration: none; /* Sin subrayado */
+    transition: color 0.3s ease; /* Transición de color en hover */
+  }
+  
+  .about-link:hover {
+    color: #333; /* Color de enlace más oscuro en hover */
+    text-decoration: underline; /* Subrayado en hover */
+  }
+  

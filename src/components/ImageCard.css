@@ -1,0 +1,74 @@
+.image-card-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem; /* Equivalente a 'rounded-2xl' */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.758); /* Equivalente a 'shadow-lg' */
+}
+
+.image-card-img {
+  width: 100%;
+  height: auto;
+  transition: transform 2s ease-in-out, opacity 2s ease-in-out; /* Transición más lenta */
+}
+
+.image-card-container:hover .image-card-img {
+  transform: scale(1.1); /* Equivalente a 'group-hover:scale-110' */
+}
+
+.image-card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  color: white;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent); /* Gradiente de fondo */
+  transition: background 2s ease-in-out; /* Transición más lenta */
+}
+
+.image-card-container:hover .image-card-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent); /* Gradiente en hover */
+}
+
+.image-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  visibility: hidden; /* Oculta el contenido hasta que la imagen cargue */
+  transition: visibility 0.5s ease-in-out;
+}
+
+.image-card-description {
+  padding: 0.5rem;
+  font-size: 1rem; /* Equivalente a 'text-base' */
+}
+
+.image-card-title {
+  padding: 0.5rem;
+  font-size: 1.5rem; /* Equivalente a 'text-xl' */
+  font-weight: 600; /* Equivalente a 'font-semibold' */
+}
+
+.like-button-container {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: auto;
+  background-color: #e0e0e0; /* Fondo gris mientras la imagen carga */
+  position: relative;
+}
+
+.image-placeholder.loaded {
+  background-color: transparent; /* Elimina el gris cuando la imagen esté cargada */
+}
+
+.image-placeholder.loaded + .image-card-overlay .image-card-content {
+  visibility: visible; /* Muestra el contenido cuando la imagen está cargada */
+}

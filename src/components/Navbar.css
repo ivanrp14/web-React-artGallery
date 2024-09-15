@@ -1,0 +1,97 @@
+body {
+  background-image: url('D:\Proyectos\Web JuRiaArt\web-React\images\background.jpeg');
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: initial;
+
+  font-family: 'Poppins', sans-serif;
+  padding-top: 80px; /* Añade un margen equivalente a la altura del Navbar */
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  padding: 20px 10%;
+  background-color: transparent; /* Asegura que el navbar sea visible */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil si lo deseas */
+}
+
+.logoText {
+  color: rgb(10, 10, 10);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none; /* Elimina el subrayado de la logo */
+  position: relative; /* Asegura que el pseudoelemento ::before se posicione correctamente */
+}
+.logo{
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  transition: width  0.3s ease;
+}
+
+
+
+.nav-link {
+  position: relative;
+  font-size: 18px;
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  margin-left: 40px;
+  text-decoration: none; /* Elimina el subrayado de los enlaces de navegación */
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  width: 0;
+  height: 3px;
+  background-color: rgb(0, 0, 0);
+  transition: width 0.3s ease;
+}
+
+.logoText::before {
+  content: '';
+  position: absolute;
+  bottom: -3px; /* Alinea el pseudoelemento justo debajo del texto */
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: rgb(0, 0, 0);
+  transition: width 0.3s ease;
+}
+.logo::before{
+  content: '';
+  position: absolute;
+  bottom: -3px; /* Alinea el pseudoelemento justo debajo del texto */
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: rgb(0, 0, 0);
+  transition: width 0.3s ease;
+  
+}
+.logo:hover{
+
+  width: 60px;
+  height: 60px;
+}
+.logo:hover::before {
+  width: 100%;
+}
+.logoText:hover::before {
+  width: 100%;
+}
+
+.nav-link:hover::before {
+  width: 100%;
+}
