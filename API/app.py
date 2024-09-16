@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Path
+from fastapi import FastAPI, HTTPException, Path, File, UploadFile
 from pydantic import BaseModel
 from typing import List
 from bson import ObjectId
@@ -26,6 +26,10 @@ client = MongoClient("mongodb://localhost:27017")
 db = client["gallery"]
 collection = db["illustrations"]
 
+# Ruta de almacenamiento para las imágenes
+UPLOAD_FOLDER = "./images"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
 class Illustration(BaseModel):
     name: str
     description: str
@@ -36,9 +40,20 @@ class UpdateLikes(BaseModel):
     new_likes: int
 
 @app.post("/illustrations/")
-async def add_illustration(illustration: Illustration):
+async def add_illustration(file: UploadFile = File(...), name: str = '', description: str = '', likes: int = 0):
     try:
-        illustration_dict = illustration.dict()
+        # Guardar el archivo
+        file_location = os.path.join(UPLOAD_FOLDER, file.filename)
+        with open(file_location, "wb") as f:
+            f.write(file.file.read())
+        
+        # Crear el documento
+        illustration_dict = {
+            "name": name,
+            "description": description,
+            "likes": likes,
+            "image_path": file_location
+        }
         illustration_id = collection.insert_one(illustration_dict).inserted_id
         return {"message": "Illustration added", "id": str(illustration_id)}
     except Exception as e:
@@ -75,3 +90,20 @@ async def delete_illustration(illustration_id: str):
         collection.delete_one({"_id": ObjectId(illustration_id)})
         return {"message": "Illustration deleted"}
     raise HTTPException(status_code=404, detail="Illustration not found")
+@app.delete("/illustrations/")
+async def delete_all_illustrations():
+    try:
+        # Obtener todas las ilustraciones
+        illustrations = list(collection.find())
+        
+        # Eliminar las ilustraciones y sus archivos asociados
+        for illustration in illustrations:
+            if illustration.get("image_path") and os.path.exists(illustration["image_path"]):
+                os.remove(illustration["image_path"])
+        
+        # Eliminar todos los documentos de la colección
+        result = collection.delete_many({})
+        
+        return {"message": f"Deleted {result.deleted_count} illustrations"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error deleting illustrations: {str(e)}")

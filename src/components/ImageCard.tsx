@@ -1,49 +1,84 @@
 import React, { useState } from 'react';
-import './ImageCard.css'; // Importa el archivo CSS
-import LikeButton from './LikeButton'; // Asegúrate de que la ruta sea correcta
+import './ImageCard.css';
+import LikeButton from './LikeButton';
 
 interface ImageCardProps {
-  _id: string; // Cambiar id a _id
+  _id: string;
   name: string;
   imgSrc: string;
   likes: number;
   isLiked: boolean;
-  children: React.ReactNode; // Para la descripción o cualquier otro contenido
+  children: React.ReactNode;
 }
 
 function ImageCard({ _id, name, imgSrc, likes, isLiked, children }: ImageCardProps) {
-  const [isLoaded, setIsLoaded] = useState(false); // Estado para saber si la imagen ha cargado
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [likeCount, setLikeCount] = useState(likes);
+  const [liked, setLiked] = useState(isLiked);
+
+  const handleLike = (newLikeCount: number, newLiked: boolean) => {
+    setLikeCount(newLikeCount);
+    setLiked(newLiked);
+  };
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
-    <div className="image-card-container">
-      {/* Muestra fondo gris si la imagen no ha cargado */}
-      <div className={`image-placeholder ${isLoaded ? 'loaded' : ''}`}>
-        <img 
-          src={imgSrc} 
-          alt={name} 
-          className="image-card-img" 
-          onLoad={() => setIsLoaded(true)} // Cambia el estado a true cuando la imagen se haya cargado
-          style={{ opacity: isLoaded ? 1 : 0 }} // Transición suave entre placeholder y imagen cargada
-        />
+    <>
+      {/* Vista normal de la tarjeta */}
+      <div className="image-card-container" onClick={toggleExpand}>
+        <div className={`image-placeholder ${isLoaded ? 'loaded' : ''}`}>
+          <img 
+            src={imgSrc} 
+            alt={name} 
+            className="image-card-img" 
+            onLoad={() => setIsLoaded(true)}
+            style={{ opacity: isLoaded ? 1 : 0 }}
+          />
+        </div>
+
+        {isLoaded && (
+          <div className="image-card-overlay">
+            <div className="image-card-content">
+              <h3 className="image-card-title">{name}</h3>
+             
+              <div className="like-button-container" onClick={(e) => e.stopPropagation()}>
+                {/* Botón de "like" visible en la vista normal */}
+                <LikeButton
+                  id={_id}
+                  likes={likeCount}
+                  isLiked={liked}
+                  onLikeChange={handleLike}
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Solo muestra el contenido si la imagen ha sido cargada */}
-      {isLoaded && (
-        <div className="image-card-overlay">
-          <div className="image-card-content">
-            <h3 className="image-card-title">{name}</h3>
-            <p className='image-card-description'>{children}</p>
-            <div className="like-button-container">
-              <LikeButton
-                id={_id} // Asegúrate de pasar el _id aquí
-                likes={likes}
-                isLiked={isLiked}  // Asegúrate de que este valor refleje si el usuario ya ha dado like
-              />
+      {/* Modal de vista ampliada */}
+      {isExpanded && (
+        <div className="image-modal" onClick={() => setIsExpanded(false)}>
+          <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="expanded-image-container">
+              <img src={imgSrc} alt={name} className="expanded-image" />
             </div>
+            <div className="expanded-content">
+              <h2 className="expanded-title">{name}</h2>
+              <p className="expanded-description">{children}</p>
+              {/* Solo mostramos el número de likes en la vista ampliada */}
+              <div className="expanded-likes">
+                <span>{likeCount} Likes</span>
+              </div>
+            </div>
+            <span className="close-button" onClick={() => setIsExpanded(false)}>✕</span>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

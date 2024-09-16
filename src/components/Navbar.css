@@ -1,52 +1,96 @@
+/* Variables de color para el tema claro (por defecto) */
+:root {
+  --background-image: url('D:/Proyectos/Web JuRiaArt/web-React/images/background.png');
+  --background-image--dark: url('D:/Proyectos/Web JuRiaArt/web-React/images/background-dark.png');
+  --background-color: #ffffff;
+  --text-color: #000;
+  --link-color: #000;
+  --header-bg: rgba(255, 255, 255,1);
+  --header-bg--dark: ;
+  --logo-hover-width: 60px;
+  --logo-hover-height: 60px;
+  --nav-link-hover-color: #000;
+  --button-bg: #f0f0f0;
+  --button-border: #ccc;
+  --button-text: #000;
+  --button-bg-dark: #333;
+  --button-border-dark: #444;
+  --button-text-dark: #fff;
+
+  /* Añadir transición para las propiedades que cambian */
+  --transition-duration: 0.3s;
+}
+
+/* Variables de color para el tema oscuro */
+body.dark-mode {
+  --background-image: var(--background-image--dark); /* Ajusta según la preferencia para el modo oscuro */
+  --background-color: #20202052;
+  --text-color: #fff;
+  --link-color: #1e90ff;
+  --header-bg: #000000;
+  --logo-hover-width: 60px;
+  --logo-hover-height: 60px;
+  --nav-link-hover-color: #1e90ff;
+  --button-bg: var(--button-bg-dark);
+  --button-border: var(--button-border-dark);
+  --button-text: var(--button-text-dark);
+  
+}
+
+/* Aplicación de estilos globales con transición suave */
 body {
-  background-image: url('D:\Proyectos\Web JuRiaArt\web-React\images\background.jpeg');
-
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: initial;
-
+  background-image: var(--background-image);
+ 
+  background-color: var(--background-color);
   font-family: 'Poppins', sans-serif;
-  padding-top: 80px; /* Añade un margen equivalente a la altura del Navbar */
+  padding-top: 0px; /* Añade un margen equivalente a la altura del Navbar */
+  color: var(--text-color);
+  transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease, background-image var(--transition-duration) ease;
 }
 
 .header {
   position: fixed;
   top: 0;
   left: 0;
+  height: 45px;
   width: 80%;
-  padding: 20px 10%;
-  background-color: transparent; /* Asegura que el navbar sea visible */
+  padding: 10px 10%;
+  background-color: var(--header-bg); /* Color del fondo del header */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 100;
+  z-index: 0;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil si lo deseas */
+  transition: background-color var(--transition-duration) ease;
 }
 
 .logoText {
-  color: rgb(10, 10, 10);
+  color: var(--text-color);
   font-size: 1.5rem;
   font-weight: 700;
   text-decoration: none; /* Elimina el subrayado de la logo */
   position: relative; /* Asegura que el pseudoelemento ::before se posicione correctamente */
+  transition: color var(--transition-duration) ease;
 }
-.logo{
-  width: 50px;
-  height: 50px;
+
+.logo {
+  position: fixed;;
+  padding-left: 100px;
+  width: 40px;
+  height: 40px;
   position: fixed;
-  top: 0;
-  transition: width  0.3s ease;
+  top: 2%;
+  transition: width var(--transition-duration) ease, height var(--transition-duration) ease;
 }
-
-
 
 .nav-link {
   position: relative;
   font-size: 18px;
-  color: rgb(0, 0, 0);
+  color: var(--text-color);
   font-weight: 500;
   margin-left: 40px;
   text-decoration: none; /* Elimina el subrayado de los enlaces de navegación */
+  transition: color var(--transition-duration) ease;
 }
 
 .nav-link::before {
@@ -55,8 +99,8 @@ body {
   top: 100%;
   width: 0;
   height: 3px;
-  background-color: rgb(0, 0, 0);
-  transition: width 0.3s ease;
+  background-color: var(--nav-link-hover-color);
+  transition: width var(--transition-duration) ease;
 }
 
 .logoText::before {
@@ -66,32 +110,41 @@ body {
   left: 0;
   width: 0;
   height: 3px;
-  background-color: rgb(0, 0, 0);
-  transition: width 0.3s ease;
+  background-color: var(--text-color);
+  transition: width var(--transition-duration) ease;
 }
-.logo::before{
-  content: '';
-  position: absolute;
-  bottom: -3px; /* Alinea el pseudoelemento justo debajo del texto */
-  left: 0;
-  width: 0;
-  height: 3px;
-  background-color: rgb(0, 0, 0);
-  transition: width 0.3s ease;
-  
-}
-.logo:hover{
 
-  width: 60px;
-  height: 60px;
+
+.logo:hover {
+  width: 3%;
+  height: 5%;
 }
+
 .logo:hover::before {
   width: 100%;
 }
+
 .logoText:hover::before {
   width: 100%;
 }
 
 .nav-link:hover::before {
   width: 100%;
+}
+
+/* Estilos para el botón de cambio de tema */
+.theme-toggle-btn {
+  background-color: var(--button-bg);
+  border: 2px solid var(--button-border);
+  color: var(--button-text);
+  margin-left: 50px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--button-border);
+  color: var(--button-bg);
 }

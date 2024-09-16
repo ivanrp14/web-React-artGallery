@@ -1,26 +1,44 @@
+/* Variables de color para el tema claro y oscuro */
+:root {
+  --like-button-bg: #f0f0f0;
+  --like-button-border: #ccc;
+  --like-button-text: #000;
+  --like-button-bg-dark: #333;
+  --like-button-border-dark: #444;
+  --like-button-text-dark: #fff;
+  --transition-duration: 0.3s;
+}
+
+body.dark-mode {
+  --like-button-bg: var(--like-button-bg-dark);
+  --like-button-border: var(--like-button-border-dark);
+  --like-button-text: var(--like-button-text-dark);
+}
+
+/* Estilos para el contenedor del botón de "Me gusta" */
 .like-button-container {
   padding: 0.1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
+/* Estilos para el contenedor del corazón */
 .heart-box {
   position: relative;
   display: flex;
-  justify-content:center;
-  align-items: left;
+  justify-content: center;
+  align-items: center;
   width: 3rem; /* Ajusta según sea necesario */
   height: 3rem; /* Ajusta según sea necesario */
-  cursor: text;
-  transition: transform 0.3s;
-  background-color: #121212;
+  cursor: pointer; /* Cambia el cursor a pointer */
+  transition: transform var(--transition-duration) ease;
+  background-color: var(--like-button-bg);
   border-radius: 10%;
-  border-color: #ffffff;
-  border-width: 1px;
+  border: 1px solid var(--like-button-border);
 }
 
+/* Estilos para el conteo de "Me gusta" */
 .like-count {
   font-family: 'Roboto', sans-serif;
   padding-left: 1rem;
@@ -28,8 +46,10 @@
   position: relative;
   font-size: 16px;
   font-weight: 700;
+  color: white;
 }
 
+/* Estilos para el efecto hover */
 .like-button-container:hover .like-count {
   opacity: 1;
 }

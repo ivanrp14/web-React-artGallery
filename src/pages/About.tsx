@@ -1,10 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './About.css'; // Asegúrate de importar el archivo CSS
+import logo from '../../images/logo.png'; // Asegúrate de que la ruta sea correcta
 
 const About: React.FC = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Verifica el tema guardado en localStorage al montar el componente
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark') {
+      setIsDarkMode(true);
+      document.body.classList.add('dark-mode');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDarkMode(prevMode => !prevMode);
+    if (!isDarkMode) {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  };
+
   return (
     <div className="about-page">
       <div className="about-container">
+        <img src={logo} alt="Logo" className="about-logo" />
         <h1 className="about-title">Sobre Mí</h1>
         <p>
           ¡Hola! Mi nombre es <strong className="about-strong">Julia Ribas Roig</strong>, soy una apasionada estudiante de ilustración en la <strong className="about-strong">Escuela Joso</strong>.
@@ -14,8 +38,9 @@ const About: React.FC = () => {
         </p>
         <p>
           Si deseas contactarme, puedes enviarme un correo a:  
-          <a href="mailto:jujurib14@gmail.com" className="about-link"> correo@gmail.com</a>.
+          <a href="mailto:jujurib14@gmail.com" className="about-link"> jujurib14@gmail.com</a>.
         </p>
+        
       </div>
     </div>
   );

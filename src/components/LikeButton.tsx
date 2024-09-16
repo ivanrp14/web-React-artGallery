@@ -7,9 +7,10 @@ interface LikeButtonProps {
   id: string; // ID del recurso
   likes: number;
   isLiked: boolean;
+  onLikeChange: (newLikeCount: number, newLiked: boolean) => void;
 }
 
-function LikeButton({ id, likes, isLiked }: LikeButtonProps) {
+function LikeButton({ id, likes, isLiked, onLikeChange }: LikeButtonProps) {
   const [likeCount, setLikeCount] = useState(likes);
   const [liked, setLiked] = useState(isLiked);
 
@@ -17,10 +18,15 @@ function LikeButton({ id, likes, isLiked }: LikeButtonProps) {
     setLiked(isLiked);
   }, [isLiked]);
 
+  useEffect(() => {
+    // Check local storage to see if user has already liked this item
+    const likedImages = JSON.parse(localStorage.getItem('likedImages') || '[]');
+    setLiked(likedImages.includes(id));
+  }, [id]);
+
   const toggleDisplay = async () => {
     try {
       const newLikes = liked ? likeCount - 1 : likeCount + 1;
-      // Asegúrate de que 'id' no sea undefined
       if (!id) {
         console.error('ID is undefined');
         return;
@@ -28,6 +34,19 @@ function LikeButton({ id, likes, isLiked }: LikeButtonProps) {
       await axios.put(`http://127.0.0.1:8000/illustrations/${id}/likes`, { new_likes: newLikes });
       setLikeCount(newLikes);
       setLiked(!liked);
+
+      // Update local storage
+      const likedImages = JSON.parse(localStorage.getItem('likedImages') || '[]');
+      if (liked) {
+        const updatedLikedImages = likedImages.filter((imageId: string) => imageId !== id);
+        localStorage.setItem('likedImages', JSON.stringify(updatedLikedImages));
+      } else {
+        likedImages.push(id);
+        localStorage.setItem('likedImages', JSON.stringify(likedImages));
+      }
+
+      // Notify parent component about the change
+      onLikeChange(newLikes, !liked);
     } catch (error) {
       console.error("Error updating likes:", error);
     }
