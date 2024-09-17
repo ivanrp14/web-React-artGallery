@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css'; // Asegúrate de importar el archivo CSS para los estilos globales
 import Home from './pages/Home';
 import Navbar from './components/Navbar';

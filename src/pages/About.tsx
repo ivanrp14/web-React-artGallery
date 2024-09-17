@@ -3,7 +3,7 @@ import './About.css'; // Asegúrate de importar el archivo CSS
 import logo from '../../images/logo.png'; // Asegúrate de que la ruta sea correcta
 
 const About: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     // Verifica el tema guardado en localStorage al montar el componente
@@ -14,16 +14,6 @@ const About: React.FC = () => {
     }
   }, []);
 
-  const toggleTheme = () => {
-    setIsDarkMode(prevMode => !prevMode);
-    if (!isDarkMode) {
-      document.body.classList.add('dark-mode');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.body.classList.remove('dark-mode');
-      localStorage.setItem('theme', 'light');
-    }
-  };
 
   return (
     <div className="about-page">
