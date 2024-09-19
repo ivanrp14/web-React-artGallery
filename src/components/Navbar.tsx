@@ -1,9 +1,10 @@
-import  { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Importa el componente Link
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Cargar el tema guardado en localStorage
   useEffect(() => {
@@ -28,18 +29,26 @@ function Navbar() {
     document.body.classList.toggle('dark-mode', isDarkMode);
   }, [isDarkMode]);
 
+  // Toggle del menú móvil
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <header className="header">
       <Link to="/" className="logoText">Ju.Riart</Link>
-      <Link to="/" ><img className="logo" src="images/logo.png" alt="" /></Link>
-
-      <nav className="nav">
+      <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
         <Link to="/" className="nav-link">Home</Link>
+        
         <Link to="/about" className="nav-link">About</Link>
         <button onClick={toggleTheme} className="theme-toggle-btn">
           {isDarkMode ? '🌙' : '☀️'}
         </button>
       </nav>
+
+      <button className="menu-toggle-btn" onClick={toggleMenu}>
+        ☰
+      </button>
     </header>
   );
 }

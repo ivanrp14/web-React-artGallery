@@ -1,20 +1,20 @@
 /* Variables de color para el tema claro (por defecto) */
 :root {
-  --background-image: url('D:/Proyectos/Web JuRiaArt/web-React/images/background.png');
-  --background-image--dark: url('D:/Proyectos/Web JuRiaArt/web-React/images/background-dark.png');
-  --background-color: #ffffff;
-  --text-color: #000;
-  --link-color: #000;
-  --header-bg: rgba(255, 255, 255,1);
-  --header-bg--dark: ;
+  --background-image: url('/images/background.png');
+  --background-image--dark: url('/images/background-dark.png');
+  --background-color: #f5f5f5;
+  --text-color: #333;
+  --link-color: #007bff;
+  --header-bg: rgba(255, 255, 255, 0.9);
+  --header-bg--dark: rgba(0, 0, 0, 0.9);
   --logo-hover-width: 60px;
   --logo-hover-height: 60px;
-  --nav-link-hover-color: #000;
-  --button-bg: #f0f0f0;
-  --button-border: #ccc;
-  --button-text: #000;
-  --button-bg-dark: #333;
-  --button-border-dark: #444;
+  --nav-link-hover-color: #007bff;
+  --button-bg: #007bff;
+  --button-border: #007bff;
+  --button-text: #fff;
+  --button-bg-dark: #444;
+  --button-border-dark: #555;
   --button-text-dark: #fff;
 
   /* Añadir transición para las propiedades que cambian */
@@ -23,27 +23,25 @@
 
 /* Variables de color para el tema oscuro */
 body.dark-mode {
-  --background-image: var(--background-image--dark); /* Ajusta según la preferencia para el modo oscuro */
-  --background-color: #20202052;
+  --background-image: var(--background-image--dark);
+  --background-color: #202020;
   --text-color: #fff;
   --link-color: #1e90ff;
-  --header-bg: #000000;
+  --header-bg: rgba(0, 0, 0, 0.9);
   --logo-hover-width: 60px;
   --logo-hover-height: 60px;
   --nav-link-hover-color: #1e90ff;
   --button-bg: var(--button-bg-dark);
   --button-border: var(--button-border-dark);
   --button-text: var(--button-text-dark);
-  
 }
 
 /* Aplicación de estilos globales con transición suave */
 body {
   background-image: var(--background-image);
- 
   background-color: var(--background-color);
-  font-family: 'Poppins', sans-serif;
-  padding-top: 0px; /* Añade un margen equivalente a la altura del Navbar */
+  font-family: 'Raleway';
+  padding-top: 80px; /* Añade un margen equivalente a la altura del Navbar */
   color: var(--text-color);
   transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease, background-image var(--transition-duration) ease;
 }
@@ -51,62 +49,87 @@ body {
 .header {
   position: fixed;
   top: 0;
-  left: 0;
-  height: 45px;
-  width: 80%;
-  padding: 10px 10%;
-  background-color: var(--header-bg); /* Color del fondo del header */
+  left: 50px;
+  right: 0;
+  width: 100%;
+  height: 80px; /* Altura del navbar */
+  background-color: var(--header-bg);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  z-index: 0;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil si lo deseas */
+  justify-content: center;
+  z-index: 1000;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   transition: background-color var(--transition-duration) ease;
 }
 
-.logoText {
-  color: var(--text-color);
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-decoration: none; /* Elimina el subrayado de la logo */
-  position: relative; /* Asegura que el pseudoelemento ::before se posicione correctamente */
-  transition: color var(--transition-duration) ease;
+.header-content {
+  display: flex;
+  width: 100%;
+  max-width: 1200px; /* Limita el ancho del contenido */
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 0 20px 0 20px;
 }
 
 .logo {
-  position: fixed;;
-  padding-left: 100px;
-  width: 40px;
-  height: 40px;
-  position: fixed;
-  top: 2%;
-  transition: width var(--transition-duration) ease, height var(--transition-duration) ease;
+  background-image: url('/images/logo.png');
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav-link {
-  position: relative;
-  font-size: 18px;
+.logo img {
+  width: 60px; /* Tamaño del logo */
+  height: 60px;
+  transition: width var(--transition-duration) ease;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Espacio entre los enlaces y el botón de cambio de tema */
+}
+
+.nav-link {	
+  padding: 10px 15px; /* Espacio interno de los enlaces */
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 1.8rem; /* Tamaño del texto de los enlaces */
+  font-weight: 500;
   color: var(--text-color);
   font-weight: 500;
-  margin-left: 40px;
-  text-decoration: none; /* Elimina el subrayado de los enlaces de navegación */
+  text-decoration: none;
+  position: relative;
   transition: color var(--transition-duration) ease;
 }
 
 .nav-link::before {
   content: '';
   position: absolute;
-  top: 100%;
+  top: auto;
+  left: 0;
   width: 0;
   height: 3px;
   background-color: var(--nav-link-hover-color);
   transition: width var(--transition-duration) ease;
 }
+.logoText {
+  margin-right: 50%;
+  font-family: 'Poppins';
+  font-size: 3rem; /* Tamaño del texto de los enlaces */
+  color: var(--text-color);
+  font-weight: 700;
+  text-decoration: none;
+  position: relative;
+  transition: color var(--transition-duration) ease;
+}
 
 .logoText::before {
+  text-decoration: none;
   content: '';
   position: absolute;
-  bottom: -3px; /* Alinea el pseudoelemento justo debajo del texto */
+  bottom: -3px;
   left: 0;
   width: 0;
   height: 3px;
@@ -114,10 +137,8 @@ body {
   transition: width var(--transition-duration) ease;
 }
 
-
-.logo:hover {
-  width: 3%;
-  height: 5%;
+.logo:hover img {
+  width: var(--logo-hover-width);
 }
 
 .logo:hover::before {
@@ -137,14 +158,81 @@ body {
   background-color: var(--button-bg);
   border: 2px solid var(--button-border);
   color: var(--button-text);
-  margin-left: 50px;
-  padding: 10px 10px;
+  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
+  margin-right: 20px;
   transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease;
 }
 
 .theme-toggle-btn:hover {
   background-color: var(--button-border);
   color: var(--button-bg);
+}
+
+/* Botón de menú hamburguesa */
+.menu-toggle-btn {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  position: absolute;
+  left: 20px;
+}
+
+/* Estilos responsivos para pantallas pequeñas */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: var(--header-bg);
+    position: absolute;
+    top: 80px; /* Ajusta la posición del menú debajo del navbar */
+    left: 0;
+    transition: max-height var(--transition-duration) ease;
+    overflow: hidden;
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav-link {
+    margin: 10px 0;
+    border-radius: 10px;
+  }
+
+  .menu-toggle-btn {
+    display: block;
+  }
+}
+
+/* Estilos responsivos para pantallas grandes */
+@media (min-width: 769px) {
+  .menu-toggle-btn {
+    display: none;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: row;
+    max-height: none;
+  }
+
+  .nav-link {
+    margin-left: 20px;
+  }
 }
